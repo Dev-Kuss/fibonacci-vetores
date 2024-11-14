@@ -1,6 +1,4 @@
 
-
-```markdown
 # Technical Test API
 
 API REST desenvolvida em Java com Spring Boot para resolução de desafios técnicos.
@@ -22,7 +20,7 @@ API REST desenvolvida em Java com Spring Boot para resolução de desafios técn
 ## 🔧 Instalação e Execução
 
 ### Usando Docker (Recomendado)
-```
+
 1. Clone o repositório:
 ```bash
 git clone https://github.com/seu-usuario/technical-test.git
