@@ -52,25 +52,100 @@ A documentação Swagger está disponível em:
 - http://localhost:8080/swagger-ui.html
 - http://localhost:8080/api-docs
 
-## 🛠️ Endpoints
+## 🎯 Endpoints e Inputs
 
-### Fibonacci
-- GET `/api/fibonacci/verificar/{numero}` - Verifica se um número pertence à sequência
-- GET `/api/fibonacci/sequencia/{limite}` - Gera sequência até o limite
+### Fibonacci Controller
+- GET `/api/fibonacci/verificar/{numero}`
+  - Input: número (path variable)
+  - Output:
+    ```json
+    {
+      "numero": 34,
+      "pertence": true,
+      "sequencia": [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+    }
+    ```
 
-### Soma
-- GET `/api/soma` - Calcula soma sequencial
-- GET `/api/soma/detalhado` - Mostra processo detalhado
+- GET `/api/fibonacci/sequencia/{limite}`
+  - Input: limite (path variable)
+  - Output: `[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]`
 
-### Faturamento
-- GET `/api/faturamento/estatisticas` - Retorna estatísticas de faturamento
-- GET `/api/faturamento/dias-acima-media` - Lista dias acima da média
+### Soma Controller
+- GET `/api/soma`
+  - Input: nenhum
+  - Output: `91` (número)
 
-### Distribuição
-- GET `/api/distribuicao` - Calcula percentual por estado
+- GET `/api/soma/detalhado`
+  - Input: nenhum
+  - Output:
+    ```text
+    Iteração 1: K = 1, SOMA = 1
+    Iteração 2: K = 2, SOMA = 3
+    ...
+    Iteração 13: K = 13, SOMA = 91
+    ```
 
-### Inversão
-- POST `/api/inversao` - Inverte caracteres de um texto
+### Faturamento Controller
+- GET `/api/faturamento/estatisticas`
+  - Input: nenhum
+  - Output:
+    ```json
+    {
+      "menorValor": 373.7838,
+      "maiorValor": 48924.2448,
+      "mediaMensal": 20865.37,
+      "diasAcimaMedia": 10
+    }
+    ```
+
+- GET `/api/faturamento/dias-acima-media`
+  - Input: nenhum
+  - Output:
+    ```json
+    [
+      {
+        "dia": 1,
+        "valor": 22174.1664
+      },
+      {
+        "dia": 2,
+        "valor": 24537.6698
+      }
+    ]
+    ```
+
+### Distribuição Controller
+- GET `/api/distribuicao`
+  - Input: nenhum
+  - Output:
+    ```json
+    [
+      {
+        "estado": "SP",
+        "valor": 67836.43,
+        "percentual": 37.53
+      },
+      {
+        "estado": "RJ",
+        "valor": 36678.66,
+        "percentual": 20.29
+      }
+    ]
+    ```
+
+### Inversão Controller
+- POST `/api/inversao`
+  - Input: texto (raw text)
+    ```text
+    Hello World
+    ```
+  - Output:
+    ```json
+    {
+      "textoOriginal": "Hello World",
+      "textoInvertido": "dlroW olleH"
+    }
+    ```
 
 ## 🧪 Testes
 
@@ -86,15 +161,48 @@ src/
 ├── main/
 │   ├── java/
 │   │   └── com/example/technicalTest/
+│   │       ├── TechnicalTestApplication.java
 │   │       ├── controller/
+│   │       │   ├── DistribuicaoController.java
+│   │       │   ├── FaturamentoController.java
+│   │       │   ├── FibonacciController.java
+│   │       │   ├── InversaoController.java
+│   │       │   └── SomaController.java
 │   │       ├── dto/
+│   │       │   ├── DistribuicaoDTO.java
+│   │       │   ├── FaturamentoDTO.java
+│   │       │   ├── FibonacciDTO.java
+│   │       │   └── InversaoDTO.java
+│   │       ├── exception/
+│   │       │   └── FaturamentoNotFoundException.java
 │   │       ├── model/
+│   │       │   ├── Distribuicao.java
+│   │       │   └── Faturamento.java
 │   │       ├── repository/
-│   │       └── service/
+│   │       │   ├── DistribuicaoRepository.java
+│   │       │   └── FaturamentoRepository.java
+│   │       ├── service/
+│   │       │   ├── DistribuicaoService.java
+│   │       │   ├── FaturamentoService.java
+│   │       │   ├── FibonacciService.java
+│   │       │   ├── InversaoService.java
+│   │       │   └── SomaService.java
+│   │       └── util/
+│   │           └── FaturamentoMapper.java
 │   └── resources/
-│       ├── db/migration/
-│       └── application.properties
-└── test/
+│       ├── application.properties
+│       └── db/
+│           └── migration/
+│               └── V1_insert_faturamento_e_distribuicao_data.sql
+├── test/
+│   └── java/
+│       └── com/example/technicalTest/
+│           └── TechnicalTestApplicationTests.java
+├── Dockerfile
+├── docker-compose.yml
+├── mvnw
+├── mvnw.cmd
+└── pom.xml
 ```
 
 ## 🤝 Contribuindo
